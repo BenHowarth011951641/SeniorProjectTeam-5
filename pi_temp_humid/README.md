@@ -1,5 +1,5 @@
-!!Go into raspberry Pi terminal and enter all of the following commands in order!!
-
+!!Go into raspberry Pi terminal and enter all of the following commands in order before using code!!
+```
 sudo apt update
 sudo apt full-upgrade
 sudo apt install python3-pip
@@ -12,3 +12,4 @@ sudo python3 raspi-blinka.py
 
 pip3 install adafruit-circuitpython-dht
 sudo apt-get install libgpiod2
+```
