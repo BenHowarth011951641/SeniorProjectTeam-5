@@ -13,7 +13,6 @@ mq2_apin = 0
 #port init
 def init():
          GPIO.setwarnings(False)
-         GPIO.cleanup()			#clean up at the end of your script
          GPIO.setmode(GPIO.BCM)		#to specify whilch pin numbering system
          # set up the SPI interface pins
          GPIO.setup(SPIMOSI, GPIO.OUT)
@@ -56,6 +55,11 @@ def readadc(adcnum, clockpin, mosipin, misopin, cspin):
         
         adcout >>= 1       # first bit is 'null' so drop it
         return adcout
+    
+def readCO2():
+     COlevel=readadc(mq2_apin, SPICLK, SPIMOSI, SPIMISO, SPICS)
+     return ((COlevel/1024.)*3.3)
+    
 #main ioop
 def main():
          init()
@@ -79,6 +83,5 @@ if __name__ =='__main__':
          except KeyboardInterrupt:
                   pass
 
-GPIO.cleanup()
          
          
