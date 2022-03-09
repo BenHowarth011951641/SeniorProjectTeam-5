@@ -3,22 +3,30 @@ import board
 import adafruit_dht
 import psutil
 
-#kills previously running process.
-for proc in psutil.process_iter():
-    if proc.name() == 'libgpiod_pulsein' or proc.name() == 'libgpiod_pulsei':
-        proc.kill()
+sensor = None
 
-#output pin on pi that sensor is connected to.        
-sensor = adafruit_dht.DHT11(board.D23)
+def init():
+    global sensor
+    #kills previously running process.
+    for proc in psutil.process_iter():
+        if proc.name() == 'libgpiod_pulsein' or proc.name() == 'libgpiod_pulsei':
+            proc.kill()
 
-def readTemp():
-    return sensor.temperature
+    #output pin on pi that sensor is connected to.        
+    sensor = adafruit_dht.DHT11(board.D23)
 
-def readHumid():
-    return sensor.humidity
+def measure():
+    global sensor
+    
+    sensor.measure()
+    temp = sensor._temperature
+    humidity = sensor._humidity
+    
+    return temp, humidity
 
 #Displays temperature/humiduty data or shows an error.
 def main():
+    init()
     while True:
         try:
             temp = sensor.temperature
@@ -35,4 +43,10 @@ def main():
             raise error
     
         time.sleep(2.0)
-        
+    
+if __name__ =='__main__':
+         try:
+                  main()
+                  pass
+         except KeyboardInterrupt:
+                  pass
