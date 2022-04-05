@@ -287,16 +287,26 @@ class sx126x:
             print("receive rssi value fail")
             # print("receive rssi value fail: ",re_temp)
 
+    def sendMessage(self, address, message):
+        GPIO.output(self.M1,GPIO.LOW)
+        GPIO.output(self.M0,GPIO.LOW)
+        time.sleep(0.1)
+
+        data = bytes([int(address)>>8]) + bytes([int(address)&0xff]) + bytes([self.offset_freq]) + bytes([self.addr>>8]) + bytes([self.addr&0xff]) + bytes([self.offset_freq]) + message.encode()
+
+        self.ser.write(data)
+        # if self.rssi == True:
+            # self.get_channel_rssi()
+        time.sleep(0.1)
+
 def main():
     node = sx126x(serial_num = "/dev/ttyS0",freq=915,addr=2,power=22,rssi=True,air_speed=2400,relay=False)
     while True:
         try:
-            print("send test message")
-            data = bytes([255]) + bytes([255]) + bytes([65]) + bytes([255]) + bytes([255]) + bytes([65]) + "Test message".encode()
-            node.send(data)
+            node.sendMessage(65535, "send test mesg")
             time.sleep(1)
             node.receive()
-            
+
         except RuntimeError as error:
             print(error.args[0])
             time.sleep(2.0)
