@@ -20,7 +20,7 @@ def main():
                   else:
                       print("No fire :)")
                       
-                  time.sleep(2.0)
+                  time.sleep(3.0)
 
 if __name__ =='__main__':
          try:
