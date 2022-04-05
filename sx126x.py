@@ -286,3 +286,30 @@ class sx126x:
             # pass
             print("receive rssi value fail")
             # print("receive rssi value fail: ",re_temp)
+
+def main():
+    node = sx126x(serial_num = "/dev/ttyS0",freq=915,addr=2,power=22,rssi=True,air_speed=2400,relay=False)
+    while True:
+        try:
+            print("send test message")
+            data = bytes([255]) + bytes([255]) + bytes([65]) + bytes([255]) + bytes([255]) + bytes([65]) + "Test message".encode()
+            node.send(data)
+            time.sleep(1)
+            node.receive()
+            
+        except RuntimeError as error:
+            print(error.args[0])
+            time.sleep(2.0)
+            continue
+        
+        except Exception as error:
+            raise error
+    
+        time.sleep(2.0)
+    
+if __name__ =='__main__':
+         try:
+                  main()
+                  pass
+         except KeyboardInterrupt:
+                  pass
