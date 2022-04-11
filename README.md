@@ -12,4 +12,6 @@ sudo python3 raspi-blinka.py
 
 pip3 install adafruit-circuitpython-dht
 sudo apt-get install libgpiod2
+
+AWS Username/password is not public information (ask Ben for information)
 ```
