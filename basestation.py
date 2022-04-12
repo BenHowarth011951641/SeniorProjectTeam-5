@@ -10,7 +10,7 @@ def main():
 
     while True:
         message = node.receive()
-        if len(message) > 0:
+        if message != None and len(message) > 0:
             print(message)
         time.sleep(0.1)
 
