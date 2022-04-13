@@ -12,7 +12,7 @@ void setup() {
 
 void loop() {
   // Wait a few seconds between measurements.
-  delay(2000);
+  delay(1000);
   int analogSensor = analogRead(smokeA0);
   Serial.print("Gas value: ");
   Serial.println(analogSensor);
