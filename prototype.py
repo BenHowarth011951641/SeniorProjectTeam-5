@@ -19,14 +19,14 @@ def main():
         temp, humid = measure()
         print("Temperature: {}C  Humidity: {}% ".format(temp, humid))
 
-        if (COlevel > 1.8):
+        if (COlevel > 3.5):
             print("Fire detected!!!!")
         else:
             print("No fire :)")
 
         message = "temperature: " + \
-            str(temp) + " humidity: " + str(humid) + " CO2: " + str(COlevel)
-        node.sendMessage(1, message)
+            str(temp) + " humidity: " + str(humid) + " CO2: " + str("%.2f" % (COlevel))
+        node.sendMessage(2, message)
         time.sleep(1.0)
 
 
