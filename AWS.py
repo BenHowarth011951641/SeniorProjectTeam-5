@@ -26,6 +26,8 @@ def init():
     # use that database
     cursor.execute("use datalog")
 
+    #cursor.execute("drop table firetable")
+
     # create a table
     cursor.execute("""create table if not exists firetable (
         `id` integer primary key auto_increment not null,
@@ -33,23 +35,21 @@ def init():
         `station` integer not null,
         `temp` float not null,
         `humid` integer not null,
-        `firestatus` boolean not null
+        `colevel` float not null
         )""")
 
-def insert(fires):
+def insert(fire):
     global db_connection, cursor
-    # iterate over books list
-    for fire in fires:
-        time = fire.get("time")
-        station = fire.get("station")
-        temp = fire.get("temp")
-        humid = fire.get("humid")
-        firestatus = fire.get("firestatus")
-        # insert each book as a row in MySQL
-        cursor.execute("""insert into firetable (time, station, temp, humid, firestatus) values (
-            %s, %s, %s, %s, %s
-        )
-        """, params=(time, station, temp, humid, firestatus))
+    time = fire.get("time")
+    station = fire.get("station")
+    temp = fire.get("temp")
+    humid = fire.get("humid")
+    colevel = fire.get("colevel")
+    # insert each book as a row in MySQL
+    cursor.execute("""insert into firetable (time, station, temp, humid, colevel) values (
+        %s, %s, %s, %s, %s
+    )
+    """, params=(time, station, temp, humid, colevel))
 
     # commit insertion
     db_connection.commit()
@@ -65,17 +65,18 @@ def main():
             "station": 1,
             "temp": 20.5,
             "humid": 35,
-            "firestatus": False,
+            "colevel": 3.2,
         },
         {
             "time": "1998-01-29 12:03:04",
             "station": 2,
             "temp": 200.5,
             "humid": 5,
-            "firestatus": True,
+            "colevel": 7.7,
         }
     ]
-    insert(fires)
+    for fire in fires:
+        insert(fire)
 
     # fetch the database
     cursor.execute("select * from firetable")
@@ -85,6 +86,12 @@ def main():
 
     # print all rows in a tabular format
     print(tabulate(rows, headers=cursor.column_names))
+    
+    # delete test data
+    cursor.execute("delete from firetable where time < '2000-01-01'")
+
+    # commit delete
+    db_connection.commit()
 
     # close the cursor
     cursor.close()
