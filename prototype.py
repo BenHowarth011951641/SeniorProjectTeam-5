@@ -1,4 +1,6 @@
 import time
+import json
+from datetime import datetime
 from mq2 import init as initmq2, readCO2
 from TempHumid import measure, init as inittemp
 from sx126x import sx126x
@@ -19,14 +21,21 @@ def main():
         temp, humid = measure()
         print("Temperature: {}C  Humidity: {}% ".format(temp, humid))
 
-        if (COlevel > 3.5):
-            print("Fire detected!!!!")
-        else:
-            print("No fire :)")
+        #if (COlevel > 3.5):
+            #print("Fire detected!!!!")
+        #else:
+            #print("No fire :)")
 
-        message = "temperature: " + \
-            str(temp) + " humidity: " + str(humid) + " CO2: " + str("%.2f" % (COlevel))
-        node.sendMessage(2, message)
+        fire = {
+            "time": str(datetime.now()),
+            "station": node.addr,
+            "temp": temp,
+            "humid": humid,
+            "colevel": round(COlevel, 2)
+        }
+
+        print(json.dumps(fire))
+        node.sendMessage(2, json.dumps(fire))
         time.sleep(1.0)
 
 
