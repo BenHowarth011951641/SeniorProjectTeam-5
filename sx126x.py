@@ -315,7 +315,7 @@ def main():
         try:
             node.sendMessage(65535, "send test mesg")
             time.sleep(1)
-            node.receive()
+            print(node.receive())
 
         except RuntimeError as error:
             print(error.args[0])

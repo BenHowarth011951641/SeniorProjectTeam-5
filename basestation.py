@@ -9,6 +9,7 @@ def main():
     node = sx126x(serial_num="/dev/ttyS0", freq=915, addr=2,
                   power=22, rssi=True, air_speed=2400, relay=False)
 
+    print("Waiting for messages");
     while True:
         message = node.receive()
         if message != None and len(message) > 0:
