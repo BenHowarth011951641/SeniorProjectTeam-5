@@ -27,7 +27,7 @@ def main():
             #print("No fire :)")
 
         fire = {
-            "time": str(datetime.now()),
+            "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "station": node.addr,
             "temp": temp,
             "humid": humid,
