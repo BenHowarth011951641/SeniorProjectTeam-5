@@ -1,0 +1,14 @@
+[Unit]
+Description=Base station service
+After=network.target
+
+[Service]
+ExecStart=sudo PYTHONPATH=/home/pi/pythonscripts python3 basestation.py
+WorkingDirectory=/home/pi/dev/SeniorProjectTeam-5
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
