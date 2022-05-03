@@ -79,7 +79,7 @@ def main():
         insert(fire)
 
     # fetch the database
-    cursor.execute("select * from firetable")
+    cursor.execute("select * from firetable order by time")
     
     # get all selected rows
     rows = cursor.fetchall()
