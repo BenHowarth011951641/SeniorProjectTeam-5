@@ -13,9 +13,11 @@ def main():
     while True:
         message = node.receive()
         if message != None and len(message) > 0:
-            fire = json.loads(message)
-            print(fire)
-            insert(fire)
+            for line in message.splitlines():
+                print(line)
+                fire = json.loads(line)
+                print(fire)
+                insert(fire)
         time.sleep(0.1)
 
 
