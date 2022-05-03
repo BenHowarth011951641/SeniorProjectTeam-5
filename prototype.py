@@ -13,7 +13,7 @@ def main():
                   power=22, rssi=True, air_speed=2400, relay=False)
 
     print("please wait for sensors to warm up...")
-    time.sleep(20)
+    time.sleep(0)
     while True:
         COlevel = readCO2()
         print("Current Voltage = " + str("%.2f" % (COlevel))+" V")
