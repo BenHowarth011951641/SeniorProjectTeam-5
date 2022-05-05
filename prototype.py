@@ -9,7 +9,7 @@ from sx126x import sx126x
 def main():
     initmq2()
     inittemp()
-    node = sx126x(serial_num="/dev/ttyS0", freq=915, addr=2,
+    node = sx126x(serial_num="/dev/ttyS0", freq=915, addr=3,
                   power=22, rssi=True, air_speed=2400, relay=False)
 
     print("please wait for sensors to warm up...")
