@@ -6,7 +6,7 @@ from sx126x import sx126x
 # main loop
 def main():
     init()
-    node = sx126x(serial_num="/dev/ttyS0", freq=915, addr=2,
+    node = sx126x(serial_num="/dev/ttyS0", freq=915, addr=65535,
                   power=22, rssi=True, air_speed=2400, relay=False)
 
     print("Waiting for messages");
