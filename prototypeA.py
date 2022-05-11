@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import serial
 import time
-import time
 import json
 from datetime import datetime
 from sx126x import sx126x
@@ -47,8 +46,8 @@ if __name__ == '__main__' :
         if ser.in_waiting > 0:              
             line = ser.readline().decode('utf-8').rstrip() 
             gas = float(line[0:3])
-            humid = float(line[8:13])
             temp = float(line[3:8])
+            humid = float(line[8:13])
             time.sleep(2.0)
             try:
                 main()           
