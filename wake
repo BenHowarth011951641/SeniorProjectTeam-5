@@ -1,0 +1,14 @@
+[Unit]
+Description=prototype service
+After=syslog.target
+
+[Service]
+ExecStart=sudo PYTHONPATH=/home/pi/pythonscripts python3 prototypeA.py
+WorkingDirectory=/home/pi/dev/SeniorProjectTeam-5
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
